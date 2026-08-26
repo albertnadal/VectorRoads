@@ -1,4 +1,4 @@
-# "VectorRoads"
+# VectorRoads
 
 Hi! **VectorRoads** is my remake of the classic 1993 MS-DOS game **SkyRoads**, developed from scratch as part of one of my summer coding adventures.
 
