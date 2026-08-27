@@ -115,6 +115,7 @@ int main() {
 #endif
   static const char pressSpaceText[] = "Press SPACE to continue...";
   static const char authorText[] = "Albert Nadal Garriga (2026)";
+  static const char versionText[] = "v0.0.1";
   static const char roadCompletedText[] = "Road Completed";
 
   SetConfigFlags(FLAG_MSAA_4X_HINT);
@@ -246,6 +247,25 @@ int main() {
         },
         AUTHOR_TEXT_FONT_SIZE,
         AUTHOR_TEXT_FONT_SPACING,
+        WHITE
+      );
+
+      Vector2 versionTextSize = MeasureTextEx(
+        retroFont,
+        versionText,
+        VERSION_TEXT_FONT_SIZE,
+        VERSION_TEXT_FONT_SPACING
+      );
+
+      DrawTextEx(
+        retroFont,
+        versionText,
+        (Vector2){
+          SCR_WIDTH - versionTextSize.x - 10.0f * ZOOM,
+          SCR_HEIGHT - 20.0f * ZOOM
+        },
+        VERSION_TEXT_FONT_SIZE,
+        VERSION_TEXT_FONT_SPACING,
         WHITE
       );
       EndTextureMode();
