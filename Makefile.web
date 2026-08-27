@@ -1,0 +1,42 @@
+CC = emcc
+
+CFLAGS = -std=c11 -Ofast -flto \
+          -fno-signed-zeros -fno-trapping-math -funroll-loops \
+          -Wno-deprecated \
+          -I. -Isrc -Ithird_party \
+          -DPLATFORM_WEB
+
+LDFLAGS = -Lthird_party/raylib -lraylib.web \
+          -Lthird_party/box3d -lbox3d.web \
+          -sUSE_GLFW=3 \
+          -sASYNCIFY \
+          --preload-file audio \
+          --preload-file fonts \
+          --preload-file images \
+          --preload-file levels \
+          --preload-file models
+
+EXEC = main.html
+
+SRC = \
+    src/main.c \
+    src/level.c \
+    src/lane.c \
+    src/tunnel.c \
+    src/explosion.c
+
+OBJ = $(SRC:.c=.o)
+
+all: $(EXEC)
+
+$(EXEC): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(EXEC) $(LDFLAGS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(EXEC) $(OBJ)
+	rm -f main.js main.wasm main.data
+
+.PHONY: all clean
