@@ -13,14 +13,18 @@ So get comfortable, take a look under the hood, and join me on this little journ
 ## macOS
 
 ```
-make -f Makefile
+make
 ```
 
 ## Web Assembly
 
 ```
-make -f Makefile.web
+make web
 ```
+
+# Available on itch.io
+
+[Play in browser](https://albiasoft.itch.io/vectorroads)
 
 # Devlog video
 
