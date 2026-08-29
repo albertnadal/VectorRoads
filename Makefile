@@ -52,6 +52,21 @@ EXEC_WEB = index.html
 
 OBJ_WEB = $(SRC:src/%.c=build/web/%.o)
 
+CC_LINUX = gcc
+
+CFLAGS_LINUX = -std=c11 -Ofast -march=native -flto \
+             -fno-signed-zeros -fno-trapping-math -funroll-loops \
+             -Wno-deprecated \
+             -I/usr/local/include -I. -Isrc -Ithird_party
+
+LDFLAGS_LINUX = -Lthird_party/raylib -lraylib.linux \
+				-Lthird_party/box3d -lbox3d.linux \
+				-lm
+
+EXEC_LINUX = main_linux
+
+OBJ_LINUX = $(SRC:src/%.c=build/linux/%.o)
+
 .PHONY: default
 default: mac
 
@@ -75,6 +90,16 @@ build/web/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	$(CC_WEB) $(CFLAGS_WEB) -c $< -o $@
 
+.PHONY: linux
+linux: $(EXEC_LINUX)
+
+$(EXEC_LINUX): $(OBJ_LINUX)
+	$(CC_LINUX) $(CFLAGS_LINUX) $(OBJ_LINUX) -o $(EXEC_LINUX) $(LDFLAGS_LINUX)
+
+build/linux/%.o: src/%.c
+	@mkdir -p $(dir $@)
+	$(CC_LINUX) $(CFLAGS_LINUX) -c $< -o $@
+
 .PHONY: all
 all: mac web
 
@@ -82,4 +107,5 @@ all: mac web
 clean:
 	rm -f $(EXEC_MAC)
 	rm -f $(EXEC_WEB) index.js index.wasm index.data
+	rm -f $(EXEC_LINUX)
 	rm -rf build

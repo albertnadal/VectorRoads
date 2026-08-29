@@ -22,6 +22,12 @@ make
 make web
 ```
 
+## Linux
+
+```
+make linux
+```
+
 # Available on itch.io
 
 [Play in browser](https://albiasoft.itch.io/vectorroads)
